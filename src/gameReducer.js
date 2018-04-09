@@ -1,8 +1,9 @@
 import * as actions from './actions.js'
 
 const initialState = {
-  round: 1,
+  round: 0,
   turn: 0,
+  startPlayer: 0,
   highBid: 0,
   phase: 'place first card',
   players: [ 
@@ -12,7 +13,7 @@ const initialState = {
       stack: [],
       roundsWon: 0, 
       bid: '',
-      active: true,
+      active: false,
       passed: false,
     },
     {
@@ -21,7 +22,7 @@ const initialState = {
       stack: [],
       roundsWon: 0,
       bid: '',
-      active: true,
+      active: false,
       passed: false,
     },
     {
@@ -30,7 +31,7 @@ const initialState = {
       stack: [],
       roundsWon: 0,
       bid: '',
-      active: true,
+      active: false,
       passed: false,
     }
   ],
@@ -60,7 +61,7 @@ export const gameReducer = (state=initialState, action) => {
         { players: updatedPlayers}
       );
 
-    default:
+  default:
     return state;
   };
 };

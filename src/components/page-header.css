@@ -1,0 +1,16 @@
+
+header a {
+  color: white;
+  text-decoration: none;
+  text-shadow: 3px 3px #7c0d01 ;
+}
+
+header a:hover {
+  color:#bbb; 
+  text-decoration:none;
+}
+
+header {
+  background-color: #af8d60;
+  color: #7c0d01;
+}

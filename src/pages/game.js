@@ -25,9 +25,9 @@ export function Game(props) {
 }
 
 const mapStateToProps = state => ({
-    round: state.round,
-    phase: state.phase,
-    turn: state.turn,
+    round: state.game.round,
+    phase: state.game.phase,
+    turn: state.game.turn,
 });
 
 export default connect(mapStateToProps)(Game);

@@ -27,7 +27,7 @@ OtherPlayers.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    players: state.players
+    players: state.game.players
 });
 
 export default connect(mapStateToProps)(OtherPlayers);

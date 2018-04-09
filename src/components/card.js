@@ -20,7 +20,7 @@ export class Card extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    turn: state.turn,
+    turn: state.game.turn,
 });
 
 export default connect(mapStateToProps)(Card);

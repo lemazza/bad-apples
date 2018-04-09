@@ -27,7 +27,7 @@ export function Chat(props) {
 }
 
 const mapStateToProps = state => ({
-    chat: state.chat
+    chat: state.game.chat
 });
 
 export default connect(mapStateToProps)(Chat);

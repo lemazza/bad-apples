@@ -1,18 +1,29 @@
 //setup-game
 import React from 'react';
 import PageHeader from '../components/page-header';
+import {NewPlayer} from '../components/new-player';
 
-export default function SetupGame (props) {
-  return (
-    <div>
-      <PageHeader />
-      
-      <form>
-        <label>Number of Players</label>
-        <input type='number' min='2' max='6' id='player-number' />
+export default class SetupGame extends React.Component {
+  // getUsernameFromLocalStorage();
+  // feed this info to the first NewPlayer;
+  // onmount, this page makes a request to the db to start a new game instance, 
+  // the res gives the gameId, which is used to pass info, mostly for links.
 
-        <button type='submit'>Start Game</button>
-      </form>
-    </div>
-  )
+  //should have state.  with keys: gameId, players [{name, type}], maybe turn timer length
+  handleClick() {
+    console.log("i've been clicked");
+    //dispatch action ADD PLAYER TO SETUP
+  }
+
+  render () {
+    return (
+      <div>
+        <PageHeader />
+        
+        <NewPlayer />
+        <button onClick={e=> this.handleClick()}>add player</button>
+        <button>Start Game</button>
+      </div>
+    )
+  }
 }

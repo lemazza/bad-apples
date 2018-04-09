@@ -39,13 +39,13 @@ export function PlayerConsole(props) {
 };
 
 const mapStateToProps = state => {
-  let stacks = state.players.map(player=> player.stack.length);
+  let stacks = state.game.players.map(player=> player.stack.length);
   let bidMax = stacks.reduce((acc, cur) => acc + cur);
   return {
-    hand: state.players[0].hand,
-    stack: state.players[0].stack,
-    roundsWon: state.players[0].roundsWon,
-    bidMin: state.highBid + 1, 
+    hand: state.game.players[0].hand,
+    stack: state.game.players[0].stack,
+    roundsWon: state.game.players[0].roundsWon,
+    bidMin: state.game.highBid + 1, 
     bidMax
   }
 };
