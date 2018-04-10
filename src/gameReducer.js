@@ -61,7 +61,7 @@ export const gameReducer = (state=initialState, action) => {
         { players: updatedPlayers}
       );
 
-  default:
-    return state;
+    default:
+      return state;
   };
 };

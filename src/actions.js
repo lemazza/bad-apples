@@ -5,7 +5,7 @@ import {SubmissionError} from 'redux-form';
 
 import {API_URL} from './config';
 import {normalizeResponseErrors} from './utils';
-import {saveAuthToken, clearAuthToken} from './components/local-storage';
+import {saveAuthToken, clearAuthToken, saveLocalUser} from './local-storage';
 
 
 
@@ -24,7 +24,9 @@ export const placeCardOnStack = (playerIndex, cardType) => ({
 });
 
 /**
+  *
   * Authorization/Login Actions
+  *
   */
 
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
@@ -57,50 +59,50 @@ export const authError = error => ({
 
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
-const storeAuthInfo = (authToken, dispatch) => {
+export const storeAuthInfo = (authToken, dispatch) => {
     const decodedToken = jwtDecode(authToken);
     dispatch(setAuthToken(authToken));
     dispatch(authSuccess(decodedToken.user));
-    saveAuthToken(authToken);
 };
 
 export function login (username, password, dispatch) {
-  alert('hey, alert in login')
-  console.log('dispatch', dispatch);
-    dispatch(authRequest());
-    console.log('made it to login in actions, api is', API_URL.login);
-    return (
-        fetch(API_URL.login, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username,
-                password
-            })
+  dispatch(authRequest());
+  return (
+    fetch(API_URL.login, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    })
+    // Reject any requests which don't return a 200 status, creating
+    // errors which follow a consistent format
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(({authToken}) => {
+      storeAuthInfo(authToken, dispatch);
+      saveAuthToken(authToken);
+      saveLocalUser(username);
+    })
+    .catch(err => {
+      const {code} = err;
+      const message =
+        code === 401
+            ? 'Incorrect username or password'
+            : 'Unable to login, please try again';
+      dispatch(authError(err));
+      // Could not authenticate, so return a SubmissionError for Redux
+      // Form
+      return Promise.reject(
+        new SubmissionError({
+            _error: message
         })
-            // Reject any requests which don't return a 200 status, creating
-            // errors which follow a consistent format
-            .then(res => normalizeResponseErrors(res))
-            .then(res => res.json())
-            .then(({authToken}) => storeAuthInfo(authToken, dispatch))
-            .catch(err => {
-                const {code} = err;
-                const message =
-                    code === 401
-                        ? 'Incorrect username or password'
-                        : 'Unable to login, please try again';
-                dispatch(authError(err));
-                // Could not authenticate, so return a SubmissionError for Redux
-                // Form
-                return Promise.reject(
-                    new SubmissionError({
-                        _error: message
-                    })
-                );
-            })
-    );
+      );
+    })
+  );
 };
 
 export const refreshAuthToken = () => (dispatch, getState) => {
@@ -125,3 +127,49 @@ export const refreshAuthToken = () => (dispatch, getState) => {
             clearAuthToken(authToken);
         });
 };
+
+/**
+  *
+  * Setup Game Actions
+  *
+  */
+
+export const ADD_PLAYER = 'ADD_PLAYER';
+export const addPlayer = player => ({
+    type: ADD_PLAYER,
+    player,
+});
+
+export const EDIT_PLAYER = 'EDIT_PLAYER';
+export const editPlayer = (player, index) => ({
+    type: EDIT_PLAYER,
+    player,
+    index,
+});
+
+export const SET_GAME_ID = 'SET_GAME_ID';
+export const setGameId = gameId => ({
+    type: SET_GAME_ID,
+    gameId,
+});
+
+export const fetchNewGame = (userId) => dispatch => {
+  fetch(API_URL.games, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .then(gameObj => {
+      dispatch(setGameId(gameObj.id));
+  })
+}
