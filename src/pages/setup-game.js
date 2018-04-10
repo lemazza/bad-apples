@@ -1,69 +1,75 @@
 //setup-game
 import React from 'react';
 import PageHeader from '../components/page-header';
-import {NewPlayer} from '../components/new-player';
 import {connect} from 'react-redux';
-import {addPlayer, fetchNewGame} from '../actions';
+import {reduxForm, SubmissionError, Field} from 'redux-form';
+import Input from '../components/input';
+import {required, nonEmpty, totalPlayers} from '../components/validators';
+import {API_URL} from '../config';
+import {setGameId} from '../actions';
+
 
 class SetupGame extends React.Component {
-  // onmount, this page makes a request to the db to start a new game instance, 
-  // the res gives the gameId, which is used to pass info, mostly for links.
-
-  //should have state.  with keys: gameId, players [{name, type}], maybe turn timer length
-
-  componentDidMount() {
-    console.log("component did mount, here's the auth state: ", this.props.auth);
-    const currentUser = {
-      username: this.props.username,
-      id: this.props.id,
-      bot: false,
-    }
-    this.props.dispatch(addPlayer(currentUser))
-    this.props.dispatch(fetchNewGame(currentUser.id));
+  
+  onSubmit(values) {
+    const {bots, humans} = values;
+    console.log('props', this.props)
+    return fetch(API_URL.games, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        bots,
+        humans,
+        username: this.props.user,
+      })
+    })
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(gameObj => {
+      this.props.dispatch(setGameId(gameObj.id));
+      this.props.history.push(`/games/${gameObj.id}`);
+    })
   }
 
-  handleClick() {
-    console.log("i've been clicked");
-    //dispatch action ADD PLAYER TO SETUP
-    const defaultUser = {
-      username: 'bot',
-      bot: true,
-    }
-    this.props.dispatch(addPlayer(defaultUser))
-  }
 
   render () {
-    const players = this.props.players.map((player, index) => {
-      return (
-        <NewPlayer 
-          playername={player.username} 
-          bot={player.bot}
-          index={index}
-          gameId={this.props.gameId}
-        />
-      )
-    })
-
     return (
       <div>
         <PageHeader />
-        {this.props.gameId}
-        
-        {players}
+          <form 
+              onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+          >
 
-        <button onClick={e=> this.handleClick()}>add player</button>
-        <button>Start Game</button>
+          <Field component={Input} label='Number of AI Players' 
+            validate={[required, nonEmpty]} 
+            type="number" name="bots" min="0" max="5" step="1" value="0" 
+          />
+
+          <Field component={Input} label="Number of human players" 
+            validate={[required, nonEmpty]} 
+            type="number" name="humans" min="1" max="6" step="1" value="1" 
+          />
+
+          <button disabled={this.props.pristine || this.props.submitting}>Start Game</button>
+        </form>   
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth,
-    username: state.auth.currentUser.username,
-    userId: state.auth.currentUser.id,
-    players: state.setupGame.players,
+    user: state.auth.currentUser,
     gameId: state.setupGame.gameId,
 });
 
-export default connect(mapStateToProps)(SetupGame);
+SetupGame = connect(mapStateToProps)(SetupGame);
+
+export default reduxForm({
+    form: 'setupGame'
+})(SetupGame);

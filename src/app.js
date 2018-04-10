@@ -15,6 +15,7 @@ export default function App(props) {
           <Route exact path="/game" component={Game} />
           <Route exact path="/create-user" component={CreateUser} />
           <Route exact path="/setup-game" component={SetupGame} />
+          <Route exact path="/games/:gameId" component={Game} />
         </main>
       </div>
     </Router>

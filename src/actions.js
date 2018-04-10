@@ -153,7 +153,7 @@ export const setGameId = gameId => ({
     gameId,
 });
 
-export const fetchNewGame = (userId) => dispatch => {
+export const createNewGame = (userId) => dispatch => {
   fetch(API_URL.games, {
     method: 'POST',
     headers: {
