@@ -1,30 +1,41 @@
-//game
 import React from 'react';
 import OtherPlayers from '../components/other-players';
 import PlayerConsole from '../components/player-console';
 import Chat from '../components/chat';
 import {connect} from 'react-redux';
 import {API_URL} from '../config';
+import {loadGameState} from '../actions';
+import {loadAuthToken} from '../local-storage';
+import GameStatusDisplay from '../components/game-status-display';
 
 export class Game extends React.Component {
   //onmount hydrate gameState from DB
   componentDidMount() {
-    fetch(API_URL.games + `/${this.props.match.params.gameId}`)
-    .then(res=> console.log(res.body))
+    const authToken = loadAuthToken();
+
+    if(authToken) {
+      fetch(API_URL.games + `/${this.props.match.params.gameId}`, {
+        headers: {
+            'Authorization': `Bearer ${authToken}`,
+        }
+      })
+      .then(res=> res.json())
+      .then(data=> {
+        this.props.dispatch(loadGameState(data));
+      })
+      .catch(err=> {
+        console.log(err);
+        //display in status component, don't redirect
+        //this.props.dispatch(updateGameStatusError(err))
+      })
+    }
   }
 
   render() {
+    console.log(this.props.gameState);
     return (
       <div>
-        <div className='game-state'>
-          <ul>
-            <li>Round: {this.props.round}</li>
-            <li>Phase: {this.props.phase}</li>
-            <li>Turn: {this.props.turn}</li>
-            <li>High Bid: {this.props.highBid || 'none'}</li>
-          </ul>
-        </div>
-
+        <GameStatusDisplay />
         <OtherPlayers />
         <PlayerConsole />
         <Chat />
@@ -34,9 +45,7 @@ export class Game extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    round: state.game.round,
-    phase: state.game.phase,
-    turn: state.game.turn,
+    gameState: state.game
 });
 
 export default connect(mapStateToProps)(Game);

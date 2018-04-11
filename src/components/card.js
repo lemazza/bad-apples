@@ -13,7 +13,7 @@ export class Card extends React.Component {
 
   render() {
     return (
-      <div onClick={e=>this.handleClick(e)} className="card">{ (this.props.type)? 'BAD APPLE' : 'Apple' }</div>
+      <div onClick={e=>this.handleClick(e)} className="card">{ (this.props.type=== 'badCard')? 'BAD APPLE' : 'Apple' }</div>
     )
   }
   

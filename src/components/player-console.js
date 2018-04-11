@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import Card from './card';
 
 export function PlayerConsole(props) {
-  const handState = props.hand.map(card=> {
-    return <Card type={card} />
-  })
+  //const handState = props.hand.map(card=> {
+  //  return <Card type={card} />
+ // })
 
-  const stackState = props.stack.map(card=> {
+  /*const stackState = props.stack.map(card=> {
     return <Card type={card} />
-  })
+  })*/
 
   return (
     <div>
@@ -21,7 +21,7 @@ export function PlayerConsole(props) {
       <div>
         <h2>Your Hand</h2>
         <ul> 
-          {handState}
+          {/*handState*/}
         </ul>
       </div>
 
@@ -29,7 +29,7 @@ export function PlayerConsole(props) {
         <h2>Your Stack</h2>
         <p>{props.stack.length}</p>
         <ul>
-          {stackState}
+          {/*stackState*/}
         </ul>
       </div>
 

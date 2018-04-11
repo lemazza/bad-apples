@@ -5,7 +5,6 @@ import {sendMessage} from '../actions';
 
 export function Chat(props) {
   const messages = props.chat.map(message => {
-    console.log('message in chat', message)
     return  <li>{message.name}: {message.text}</li>
   });
   let inputMessage

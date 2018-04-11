@@ -6,23 +6,23 @@ import {reduxForm, SubmissionError, Field} from 'redux-form';
 import Input from '../components/input';
 import {required, nonEmpty, totalPlayers} from '../components/validators';
 import {API_URL} from '../config';
-import {setGameId} from '../actions';
+import {loadAuthToken} from '../local-storage';
 
 
 class SetupGame extends React.Component {
   
   onSubmit(values) {
     const {bots, humans} = values;
-    console.log('props', this.props)
+    const authToken = loadAuthToken();
     return fetch(API_URL.games, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`,
       },
       body: JSON.stringify({
         bots,
         humans,
-        username: this.props.user,
       })
     })
     .then(res => {
@@ -32,8 +32,7 @@ class SetupGame extends React.Component {
       return res.json();
     })
     .then(gameObj => {
-      this.props.dispatch(setGameId(gameObj.id));
-      this.props.history.push(`/games/${gameObj.id}`);
+      this.props.history.push(`/games/${gameObj.gameId}`);
     })
   }
 
@@ -65,7 +64,6 @@ class SetupGame extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
-    gameId: state.setupGame.gameId,
 });
 
 SetupGame = connect(mapStateToProps)(SetupGame);
