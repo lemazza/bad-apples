@@ -24,12 +24,13 @@ const initialState = {
   players: [ 
     {
       name: 'player1',
-      hand: ['goodCard','goodCard','goodCard','badCard'],
-      stack: [],
+      hand: 4,
+      stack: 0,
       roundsWon: 0, 
-      bid: '',
+      bid: -1,
       active: false,
       passed: false,
+      loggedIn: false,
     },
   ],
   chat: [ { text: 'Welcome to the game!' }, {text: 'Waiting to Load'}]

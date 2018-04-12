@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 export class Card extends React.Component {
   handleClick (e) {
     e.preventDefault();
-    this.props.dispatch(placeCardOnStack(this.props.turn, this.props.type))
+    //this.props.dispatch(placeCardOnStack(this.props.turn, this.props.type))
   }
 
   render() {

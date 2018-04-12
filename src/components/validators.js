@@ -26,7 +26,6 @@ export const matches = field => (value, allValues) => {
     : 'Does not match';
 }
 
-export const totalPlayers = field => (value, allValues) => {
-    //((allValues.humans + allValues.bots) <= 6) ? undefined : 'too many players';
-    console.log(allValues);
+export const totalPlayers = (value, allValues) => {
+    return (Number(allValues.humans) + Number(allValues.bots) <= 6) ? undefined : 'too many players';
 }

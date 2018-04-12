@@ -46,12 +46,12 @@ class SetupGame extends React.Component {
           >
 
           <Field component={Input} label='Number of AI Players' 
-            validate={[required, nonEmpty]} 
+            validate={[required, nonEmpty, totalPlayers]} 
             type="number" name="bots" min="0" max="5" step="1" value="0" 
           />
 
           <Field component={Input} label="Number of human players" 
-            validate={[required, nonEmpty]} 
+            validate={[required, nonEmpty, totalPlayers]} 
             type="number" name="humans" min="1" max="6" step="1" value="1" 
           />
 

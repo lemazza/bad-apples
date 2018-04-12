@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import './game-status-display.css'
+
 export function GameStatusDisplay (props) {
   return (
     <div className='game-status-display'>
