@@ -1,3 +1,6 @@
+const API_ADDRESS = 'mongodb://lemazza:12r46a@ds157639.mlab.com:57639/bad-apples' 
+  || 'http://localhost:8888'
+
 
 function createURLObject (base) {
   return {
@@ -9,4 +12,4 @@ function createURLObject (base) {
   }
 }
 
-export const API_URL = createURLObject('http://localhost:8888')
+export const API_URL = createURLObject(API_ADDRESS)
