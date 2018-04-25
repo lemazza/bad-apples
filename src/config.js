@@ -1,4 +1,4 @@
-const API_ADDRESS = 'mongodb://lemazza:12r46a@ds157639.mlab.com:57639/bad-apples' 
+const API_ADDRESS = 'https://bad-apples-api-server.herokuapp.com/' 
   || 'http://localhost:8888'
 
 
