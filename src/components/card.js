@@ -9,6 +9,7 @@ export class Card extends React.Component {
   handleClick = (e) => {
     if(!this.props.clickable) {
       console.log('the clicking does nothing');
+      //should send error message here
     } else {
 
       e.preventDefault();
