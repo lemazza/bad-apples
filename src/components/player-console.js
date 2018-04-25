@@ -23,7 +23,6 @@ export function PlayerConsole(props) {
   })
 
   function handleBid (values) {
-    console.log('VALUES: ', values);
     const authToken = loadAuthToken();
     fetch(API_URL.games + `/${props.gameId}/bid/${values.bidAmount}`, {
       headers: {
