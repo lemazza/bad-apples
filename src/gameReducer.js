@@ -1,6 +1,9 @@
 import * as actions from './actions.js'
 
 const initialState = {
+  playerOrder: [0],
+  numHumans: 1,
+  numBots: 0,
   status: 'Waiting',
   gameId: 'none',
   round: 0,
@@ -14,21 +17,24 @@ const initialState = {
     name: 'username here',
     hand: ['goodCard', 'goodCard', 'goodCard', 'badCard'],
     stack: [],
+    revealed: [],
     roundsWon: 0,
     bid: 0,
-    tablePosition: -1,
     active: false,
     passed: false,
     loggedIn: false,
   },
   players: [ 
     {
+      active: false,
+      creator: false,
+      controller: 0,
       name: 'player1',
       hand: 4,
       stack: 0,
+      revealed: [],
       roundsWon: 0, 
       bid: -1,
-      active: false,
       passed: false,
       loggedIn: false,
     },
@@ -45,7 +51,6 @@ export const gameReducer = (state=initialState, action) => {
       );
 
     case actions.LOAD_GAME_STATE:
-      console.log('LOAD_GAME_STATE', action);
       return Object.assign({}, state, action.gameStateObj);
 
     case actions.PLACE_CARD_ON_STACK:

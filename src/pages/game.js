@@ -10,29 +10,29 @@ import GameStatusDisplay from '../components/game-status-display';
 
 export class Game extends React.Component {
   //onmount hydrate gameState from DB
-  componentDidMount() {
+  getGameData = () => {
     const authToken = loadAuthToken();
+    fetch(API_URL.games + `/${this.props.match.params.gameId}`, {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    })
+    .then(res=> res.json())
+    .then(data=> {
+      this.props.dispatch(loadGameState(data));
+    })
+    .catch(err=> {
+      console.log(err);
+      //display in status component, don't redirect
+      //this.props.dispatch(updateGameStatusError(err))
+    })
+  }
 
-    if(authToken) {
-      fetch(API_URL.games + `/${this.props.match.params.gameId}`, {
-        headers: {
-            'Authorization': `Bearer ${authToken}`,
-        }
-      })
-      .then(res=> res.json())
-      .then(data=> {
-        this.props.dispatch(loadGameState(data));
-      })
-      .catch(err=> {
-        console.log(err);
-        //display in status component, don't redirect
-        //this.props.dispatch(updateGameStatusError(err))
-      })
-    }
+  componentDidMount() {
+    setInterval(this.getGameData,8000);
   }
 
   render() {
-    console.log(this.props.gameState);
     return (
       <div>
         <GameStatusDisplay />

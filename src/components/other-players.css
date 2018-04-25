@@ -1,3 +1,12 @@
 .other-players {
   border: 2px solid blue;
 }
+
+.active-player {
+  background-color: orange;
+}
+
+.passed-player {
+  color: #555;
+  background-color: #ccc;
+}

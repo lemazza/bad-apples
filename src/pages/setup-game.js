@@ -27,6 +27,7 @@ class SetupGame extends React.Component {
     })
     .then(res => {
       if (!res.ok) {
+        console.log(res.statusText);
         return Promise.reject(res.statusText);
       }
       return res.json();
@@ -42,7 +43,7 @@ class SetupGame extends React.Component {
       <div>
         <PageHeader />
           <form 
-              onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+            onSubmit={this.handleSubmit(values => this.onSubmit(values))}
           >
 
           <Field component={Input} label='Number of AI Players' 

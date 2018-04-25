@@ -25,6 +25,7 @@ const mapStateToProps = state => ({
   turn: state.game.turn,
   gameId: state.game.gameId,
   gameState: state.game,
+  highBid: state.game.highBid,
 });
 
 export default connect(mapStateToProps)(GameStatusDisplay);
