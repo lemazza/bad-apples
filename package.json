@@ -11,7 +11,8 @@
     "react-scripts": "1.1.1",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "travis": "^0.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
