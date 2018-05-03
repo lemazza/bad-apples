@@ -14,14 +14,6 @@ export function PlayerConsole(props) {
     return <Card clickable={true} type={card} />
   })
 
-  const stackState = props.stack.map(card=> {
-    return <Card clickable={false} type={card} />
-  })
-
-  const revealedState = props.revealed.map(card=> {
-    return <Card clickable={false} type={card} />
-  })
-
   function handleBid (values) {
     const authToken = loadAuthToken();
     fetch(API_URL.games + `/${props.gameId}/bid/${values.bidAmount}`, {
@@ -60,34 +52,33 @@ export function PlayerConsole(props) {
 
   return (
     <div className="player-console">
-      <h2>{props.username}</h2>
-      <p>Rounds Won: {props.roundsWon}</p>
+      <div className="row">
+        <div className="user-info col-4">
+          <h2>{props.username}</h2>
+          <p>Rounds Won: {props.roundsWon}</p>
+        </div>
 
-      <form onSubmit={props.handleSubmit(values => handleBid(values))}>
-        <Field component={Input} 
-          label='Amount to Bid'
-          id='bid-amt' 
-          name="bidAmount" 
-          type='number' 
-          min={props.bidMin} 
-          max={props.bidMax} 
-          step='1' 
-          placeholder={props.bidMin} 
-        />
-        <button id='bid-btn' type="submit">Bid</button>
-      </form>
-
-      <button id='pass-btn' onClick={handlePass}>Pass</button>
-
-      <div>
-        <h2>Your Hand</h2>
-         {handState}
+        <div className="player-hand col">
+          {handState}
+        </div>
       </div>
 
-      <div>
-        <h2>Your Stack</h2>
-        <p>{props.stack.length}</p>
-        {stackState} 
+      <div className="row player-console-bottom">
+        <form onSubmit={props.handleSubmit(values => handleBid(values))}>
+          <Field component={Input} 
+            label='Amount to Bid'
+            id='bid-amt' 
+            name="bidAmount" 
+            type='number' 
+            min={props.bidMin} 
+            max={props.bidMax} 
+            step='1' 
+            placeholder={props.bidMin} 
+          />
+          <button id='bid-btn' type="submit">Bid</button>
+        </form>
+
+        <button id='pass-btn' onClick={handlePass}>Pass</button>
       </div>
     </div>   
   )

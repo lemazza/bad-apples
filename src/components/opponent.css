@@ -1,0 +1,17 @@
+.opp-card-back {
+  width:  20px;
+  height: 30px;
+  background-color: brown;
+  border-radius: 2px;
+  border: 3px solid #4e4613;
+  display: inline-block;
+  margin: 0px 5px;
+}
+
+.opponent {
+  padding: 5px;
+}
+
+.opp-cards {
+  background-color: #ddd;
+}

@@ -10,3 +10,12 @@
   color: #555;
   background-color: #ccc;
 }
+
+.other-players .row {
+  margin-bottom: 10px;
+}
+
+.table-container { 
+  background-image: url('/images/table.jpg');
+  background-size: cover;
+}

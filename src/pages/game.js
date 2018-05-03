@@ -8,6 +8,8 @@ import {loadGameState} from '../actions';
 import {loadAuthToken} from '../local-storage';
 import GameStatusDisplay from '../components/game-status-display';
 
+import './game.css'
+
 export class Game extends React.Component {
   //onmount hydrate gameState from DB
   getGameData = () => {
@@ -29,12 +31,13 @@ export class Game extends React.Component {
   }
 
   componentDidMount() {
+    this.getGameData();
     setInterval(this.getGameData,8000);
   }
 
   render() {
     return (
-      <div>
+      <div className="game-page">
         <GameStatusDisplay />
         <OtherPlayers />
         <PlayerConsole />

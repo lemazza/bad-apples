@@ -1,0 +1,27 @@
+.player-card {
+  height: 90px;
+  width: 60px;
+  border: 4px solid green;
+  display: inline-block;
+}
+
+.player-card:hover {
+ box-shadow: 0 0 10px 5px rgba(203, 250, 0, 0.8);
+ cursor: pointer;
+}
+
+.goodCard {
+  background-color: white;
+  background-image: url('/images/good-apple.jpg');
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+.badCard {
+  background-color: white;
+  background-image: url('/images/bad-apple.jpg');
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}

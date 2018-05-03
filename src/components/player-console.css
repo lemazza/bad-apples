@@ -1,3 +1,8 @@
 .player-console {
-  border: 2px solid green;
+  background-image: url('/images/console.jpg');
+  background-size: cover;
+}
+
+.player-console .player-hand {
+  background-color: white;
 }

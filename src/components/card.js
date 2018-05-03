@@ -5,6 +5,8 @@ import {loadAuthToken} from '../local-storage';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
 
+import './card.css';
+
 export class Card extends React.Component {
   handleClick = (e) => {
     if(!this.props.clickable) {
@@ -34,7 +36,9 @@ export class Card extends React.Component {
 
   render() {
     return (
-      <div onClick={e=>this.handleClick(e)} className="card">{ (this.props.type=== 'badCard')? 'BAD APPLE' : 'Apple' }</div>
+      <div onClick={e=>this.handleClick(e)} className={`player-card ${this.props.type}`}>
+        { (this.props.type=== 'badCard')? 'BAD APPLE' : 'Apple' }
+      </div>
     )
   }
 }
