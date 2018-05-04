@@ -43,7 +43,7 @@ class SetupGame extends React.Component {
       <div>
         <PageHeader />
           <form 
-            onSubmit={this.handleSubmit(values => this.onSubmit(values))}
+            onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
           >
 
           <Field component={Input} label='Number of AI Players' 
