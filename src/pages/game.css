@@ -1,5 +1,5 @@
-html {
+body {
   background-image: url('/images/game-bg.jpg');
-  background-size: cover;
+  background-size: 200% 200%;
 }
 
