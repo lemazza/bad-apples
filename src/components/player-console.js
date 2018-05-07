@@ -50,12 +50,44 @@ export function PlayerConsole(props) {
     })
   }
 
+  function handleStartGame () {
+    const authToken = loadAuthToken();
+    fetch(API_URL.games + `/${props.gameId}/start/`, {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    })
+    .then(res=> res.json())
+    .then(data=> {
+      props.dispatch(loadGameState(data));
+    })
+    .catch(err=> {
+      console.log(err);
+      //display in status component, don't redirect
+      //this.props.dispatch(updateGameStatusError(err))
+    })
+  }
+
+
+  function readyGame() {
+    if(props.phase === 'waiting for players' 
+      && props.creator 
+      && props.numJoined === props.numInvited) {
+      return (
+        <button onClick={handleStartGame()} type="button" >Start Game</button>
+      )
+    }
+  }
+
+
+
   return (
     <div className="player-console">
       <div className="row">
         <div className="user-info col-4">
-          <h2>{props.username}</h2>
+          <h2 className={(props.active)? 'active-user' : ''} >{props.username}</h2>
           <p>Rounds Won: {props.roundsWon}</p>
+          {readyGame()}
         </div>
 
         <div className="player-hand col">
@@ -63,8 +95,8 @@ export function PlayerConsole(props) {
         </div>
       </div>
 
-      <div className="row player-console-bottom">
-        <form onSubmit={props.handleSubmit(values => handleBid(values))}>
+      <div className="row">
+        <form className="col" onSubmit={props.handleSubmit(values => handleBid(values))}>
           <Field component={Input} 
             label='Amount to Bid'
             id='bid-amt' 
@@ -75,10 +107,10 @@ export function PlayerConsole(props) {
             step='1' 
             placeholder={props.bidMin} 
           />
-          <button id='bid-btn' type="submit">Bid</button>
+          <button className="col" id='bid-btn' type="submit">Bid</button>
         </form>
 
-        <button id='pass-btn' onClick={handlePass}>Pass</button>
+        <button className="col" id='pass-btn' onClick={handlePass}>Pass</button>
       </div>
     </div>   
   )
@@ -101,6 +133,10 @@ const mapStateToProps = state => {
     passed: player.passed,
     loggedIn: player.loggedIn,
     gameId: state.game.gameId,
+    creator: player.creator,
+    numInvited: state.game.numBots + state.game.numHumans,
+    numJoined: state.game.players.length,
+    phase: state.game.phase,
   }
 };
 

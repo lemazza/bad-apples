@@ -10,18 +10,22 @@
  cursor: pointer;
 }
 
-.goodCard {
+.goodCard, .badCard {
   background-color: white;
   background-image: url('/images/good-apple.jpg');
   background-size: contain;
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  margin: 0 5px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,.7), -1px -1px 4px rgba(0,0,0,.5);
+}
+
+.goodCard:hover, .badCard:hover {
+  box-shadow: 4px 4px 8px rgba(0,0,0,.7), -2px -2px 8px rgba(0,0,0,.5);
+  transform: scale(1.05);
 }
 
 .badCard {
-  background-color: white;
   background-image: url('/images/bad-apple.jpg');
-  background-size: contain;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
 }
+

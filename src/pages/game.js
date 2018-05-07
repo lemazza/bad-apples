@@ -1,7 +1,6 @@
 import React from 'react';
 import OtherPlayers from '../components/other-players';
 import PlayerConsole from '../components/player-console';
-import Chat from '../components/chat';
 import {connect} from 'react-redux';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
@@ -41,7 +40,6 @@ export class Game extends React.Component {
         <GameStatusDisplay />
         <OtherPlayers />
         <PlayerConsole />
-        <Chat />
       </div>
     )
   }

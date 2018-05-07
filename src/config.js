@@ -1,4 +1,7 @@
-const API_ADDRESS = 'https://bad-apples-api-server.herokuapp.com'
+//https://localhost:8888
+//  'https://bad-apples-api-server.herokuapp.com'
+
+const API_ADDRESS = 'http://localhost:8888'
 
 
 function createURLObject (base) {

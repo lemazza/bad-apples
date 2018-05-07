@@ -37,7 +37,6 @@ export class Card extends React.Component {
   render() {
     return (
       <div onClick={e=>this.handleClick(e)} className={`player-card ${this.props.type}`}>
-        { (this.props.type=== 'badCard')? 'BAD APPLE' : 'Apple' }
       </div>
     )
   }

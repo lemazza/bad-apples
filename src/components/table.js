@@ -1,9 +1,32 @@
 import React from 'react';
 import connect from 'react-redux';
+import {loadAuthToken} from '../local-storage';
+import {API_URL} from '../config';
+import {loadGameState} from '../actions';
 import './table.css'
 
 export function Table (props) {
-  console.log('props in Table', props.players)
+  function handleReveal(values) {
+    const revealId = values.target.getAttribute('data-player-id');
+    const authToken = loadAuthToken();
+
+    fetch(API_URL.games + `/${props.gameId}/reveal/${revealId}`, {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    })
+    .then(res=> res.json())
+    .then(data=> {
+      props.dispatch(loadGameState(data));
+    })
+    .catch(err=> {
+      console.log(err);
+      //display in status component, don't redirect
+      //this.props.dispatch(updateGameStatusError(err))
+    })
+  }
+
+
   function displayStack(player) {
     if (!player || !player.stack) {
       return '';
@@ -11,7 +34,7 @@ export function Table (props) {
     let stackArray = [];
     for(let i = 0; i < player.stack; i++) {
       stackArray.push(
-        <div className={`opp-card-back stack-card-${i}`}>
+        <div onClick={val=>handleReveal(val)} className={`opp-card-back stack-card-${i}`} data-player-id={player.controller}>
         </div>
       ) 
     }
