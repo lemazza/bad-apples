@@ -1,11 +1,6 @@
 .player-console {
   background-image: url('/images/console.jpg');
   background-size: cover;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
   padding: 10px;
 }
 
@@ -29,4 +24,14 @@
 
 .active-user {
   color: orange;
+}
+
+.fake-holder {
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  padding: 10px;
 }

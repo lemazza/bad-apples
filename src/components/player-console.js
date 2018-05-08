@@ -82,7 +82,7 @@ export function PlayerConsole(props) {
 
 
   return (
-    <div className="player-console">
+    <div className="player-console fixed-bottom">
       <div className="row">
         <div className="user-info col-4">
           <h2 className={(props.active)? 'active-user' : ''} >{props.username}</h2>

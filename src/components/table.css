@@ -42,3 +42,7 @@
 .revealed-badCard {
   background-image: url('/images/bad-apple.jpg');
 }
+
+.player-table-area {
+  min-height: 100px
+}

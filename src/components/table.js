@@ -61,30 +61,30 @@ export function Table (props) {
   return (
     <div className="table">
       <div className="row top-table-row">
-        <div className="col top-left-display">
+        <div className="col player-table-area top-left-display">
           {displayStack(props.players[2])}
           {displayRevealed(props.players[2])}
         </div>
-        <div className="col top-mid-display">
+        <div className="col player-table-area top-mid-display">
           {displayStack(props.players[3])}
           {displayRevealed(props.players[3])}
         </div>
-        <div className="col top-right-display">
+        <div className="col player-table-area top-right-display">
           {displayStack(props.players[4])}
           {displayRevealed(props.players[4])}
         </div>
       </div>
 
       <div className="row bottom-table-row">
-        <div className="col bottom-left-display">
+        <div className="col player-table-area bottom-left-display">
           {displayRevealed(props.players[1])}
           {displayStack(props.players[1])}  
         </div>
-        <div className="col bottom-mid-display">
+        <div className="col player-table-area bottom-mid-display">
           {displayRevealed(props.players[0])}
           {displayStack(props.players[0])}
         </div>
-        <div className="col bottom-right-display">
+        <div className="col player-table-area bottom-right-display">
           {displayRevealed(props.players[5])}
           {displayStack(props.players[5])}
         </div>
