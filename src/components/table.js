@@ -17,7 +17,7 @@ export function Table (props) {
     })
     .then(res=> res.json())
     .then(data=> {
-      props.dispatch(loadGameState(data));
+      this.dispatch(loadGameState(data));
     })
     .catch(err=> {
       console.log(err);
@@ -34,7 +34,7 @@ export function Table (props) {
     let stackArray = [];
     for(let i = 0; i < player.stack; i++) {
       stackArray.push(
-        <div onClick={val=>handleReveal(val)} className={`opp-card-back stack-card-${i}`} data-player-id={player.controller}>
+        <div onClick={val=>handleReveal(val)} className={`opp-card-back stack-card stack-card-${i}`} data-player-id={player.controller}>
         </div>
       ) 
     }
@@ -46,8 +46,10 @@ export function Table (props) {
       return '';
     }
     let revealedCards = player.revealed.map((card, index) => {
-      <div className={`revealed-card revealed-${card}`}>
-      </div>
+      return (
+        <div className={`revealed-card revealed-${card}`}>
+        </div>
+      )
     })
     return (
       <div className="revealed-area">

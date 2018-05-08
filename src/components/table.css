@@ -3,24 +3,42 @@
   position: relative;
 }
 
+.stack-card {
+  cursor: pointer;
+}
+
 .stack-card-1 {
   top: -25px;
   left: 5px;
 }
 
 .stack-card-2 {
-  top: -25px;
-  left: 5px;
+  top: -50px;
+  left: 10px;
 }
 
 .stack-card-3 {
-  top: -25px;
-  left: 5px;
+  top: -75px;
+  left: 15px;
 }
 
 .revealed-card {
   height: 30px;
   width: 20px;
   display: inline-block;
+}
+
+.revealed-goodCard, .revealed-badCard {
   background-color: white;
+  background-image: url('/images/good-apple.jpg');
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  margin: 0 5px;
+  border-radius: 2px;
+  border: 1.5px solid green;
+}
+
+.revealed-badCard {
+  background-image: url('/images/bad-apple.jpg');
 }

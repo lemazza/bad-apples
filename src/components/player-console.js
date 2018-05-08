@@ -120,16 +120,18 @@ const mapStateToProps = state => {
   let player = state.game.userPlayer;
   let cardsInStacks = state.game.players.map(x=> x.stack);
   let bidMax = cardsInStacks.reduce((acc, cv) => acc + cv);
+  let activePlayer = state.game.players.find(plyr => plyr.controller === player.controller);
+  let active = (activePlayer)? activePlayer.active : ''
   return {
     username: player.name,
     hand: player.hand,
     stack: player.stack,
     revealed: player.revealed,
     roundsWon: player.roundsWon,
-    bidMin: state.game.highBid + 1, 
+    bidMin: (state.game.highBid === bidMax)? bidMax : state.game.highBid + 1, 
     bidMax: bidMax,
     creator: player.creator,
-    active: player.active,
+    active: active,
     passed: player.passed,
     loggedIn: player.loggedIn,
     gameId: state.game.gameId,

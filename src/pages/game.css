@@ -1,5 +1,6 @@
-body {
-  background-image: url('/images/game-bg.jpg');
-  background-size: 200% 200%;
+html, body {
+  background-image: url('/images/sunscreen-game-bg.jpg');
+  background-size: cover;
+  min-height: 600px;
 }
 
