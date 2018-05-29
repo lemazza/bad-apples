@@ -66,6 +66,11 @@ export const gameReducer = (state=initialState, action) => {
         { players: updatedPlayers}
       );
 
+    case actions.USER_BID:
+      let updatedUser = state.userPlayer;
+      updatedUser.bid = action.bidAmount;
+      return Object.assign({}, state, {userPlayer: updatedUser})
+
     default:
       return state;
   };

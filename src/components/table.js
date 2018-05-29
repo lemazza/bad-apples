@@ -3,11 +3,14 @@ import connect from 'react-redux';
 import {loadAuthToken} from '../local-storage';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
+import {socket} from '../components/websockets';
 import './table.css'
 
 export function Table (props) {
   function handleReveal(values) {
-    const revealId = values.target.getAttribute('data-player-id');
+      const revealId = values.target.getAttribute('data-player-id');
+    socket.emit('reveal', props.gameId, revealId)
+    /*
     const authToken = loadAuthToken();
 
     fetch(API_URL.games + `/${props.gameId}/reveal/${revealId}`, {
@@ -23,7 +26,7 @@ export function Table (props) {
       console.log(err);
       //display in status component, don't redirect
       //this.props.dispatch(updateGameStatusError(err))
-    })
+    })*/
   }
 
 
