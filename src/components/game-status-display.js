@@ -26,7 +26,7 @@ const mapStateToProps = state => {
     gameId: state.game.gameId,
     gameState: state.game,
     highBid: state.game.highBid,
-    activePlayer: state.game.players[activeIndex].name,
+    activePlayer: (state.game.players[activeIndex])? state.game.players[activeIndex].name : '',
   }
 };
 

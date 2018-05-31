@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {loadAuthToken} from '../local-storage';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
-
 import './card.css';
+import {socket} from '../components/websockets';
 
 export class Card extends React.Component {
   handleClick = (e) => {
@@ -13,10 +13,11 @@ export class Card extends React.Component {
       console.log('the clicking does nothing');
       //should send error message here
     } else {
+      e.preventDefault();    
+      socket.emit('place card', this.props.gameId, this.props.type)
+    }
 
-      e.preventDefault();
-      const authToken = loadAuthToken();
-      fetch(API_URL.games + `/${this.props.gameId}/place/${this.props.type}`, {
+      /*fetch(API_URL.games + `/${this.props.gameId}/place/${this.props.type}`, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
@@ -30,7 +31,7 @@ export class Card extends React.Component {
         //display in status component, don't redirect
         //this.props.dispatch(updateGameStatusError(err))
       })
-    }
+    }*/
     
   }
 

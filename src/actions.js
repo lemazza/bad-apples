@@ -5,7 +5,7 @@ import {SubmissionError} from 'redux-form';
 
 import {API_URL} from './config';
 import {normalizeResponseErrors} from './utils';
-import {saveAuthToken, clearAuthToken, saveLocalUser} from './local-storage';
+import {saveAuthToken, clearAuthToken, saveLocalUser, loadAuthToken} from './local-storage';
 
 
 
@@ -17,17 +17,46 @@ export const sendMessage = (name, text) => ({
 });
 
 export const PLACE_CARD_ON_STACK = 'PLACE_CARD_ON_STACK';
-export const placeCardOnStack = (playerIndex, cardType) => ({
+export const placeCardOnStack = (cardType) => ({
   type: PLACE_CARD_ON_STACK,
-  playerIndex,
   cardType,
+});
+
+export const USER_BID = 'USER_BID';
+export const handleUserBid = (bidAmount) => ({
+  type: USER_BID,
+  bidAmount,
 });
 
 export const LOAD_GAME_STATE = 'LOAD_GAME_STATE';
 export const loadGameState = (gameStateObj) => ({
   type: LOAD_GAME_STATE,
   gameStateObj,
-})
+});
+
+export const fetchGameState = (gameId) => dispatch => {
+  console.log('fetching');
+  const authToken = loadAuthToken();
+  fetch(API_URL.games + '/' + gameId, {
+    headers: {
+      'Authorization': `Bearer ${authToken}`
+    }
+  })
+  .then(res=> {
+    if (!res.ok) {
+      console.log('res not ok in fetchGameState');
+      return Promise.reject(res.statusText);
+    }
+    return res.json()
+  })
+  .then(data=> {
+    dispatch(loadGameState(data));
+  })
+  .catch(err => {
+    console.log('error in fetchGameState', err);
+  });
+}
+
 
 /**
   *
@@ -71,7 +100,8 @@ export const storeAuthInfo = (authToken, dispatch) => {
     dispatch(authSuccess(decodedToken.user));
 };
 
-export function login (username, password, dispatch) {
+export function login (username, password, gameId, dispatch) {
+  console.log('attempting login');
   dispatch(authRequest());
   return (
     fetch(API_URL.login, {
@@ -92,6 +122,7 @@ export function login (username, password, dispatch) {
       storeAuthInfo(authToken, dispatch);
       saveAuthToken(authToken);
       saveLocalUser(username);
+      dispatch(fetchGameState(gameId));
     })
     .catch(err => {
       const {code} = err;

@@ -1,12 +1,18 @@
 import React from 'react';
 import {Field, reduxForm, focus} from 'redux-form';
 import Input from './input';
-import {login} from '../actions';
+import {login, fetchGameState} from '../actions';
+import {socket} from './websockets';
 import {required, nonEmpty} from './validators';
 
 export class LoginForm extends React.Component {
+
 	onSubmit(values) {
-		return this.props.dispatch(login(values.username, values.password, this.props.dispatch));
+		let gameId = window.location.pathname.slice(7);
+		this.props.dispatch(login(values.username, values.password, gameId, this.props.dispatch))
+		.then(()=> {
+			window.location.reload();
+		})
 	}
 
 	render() {
