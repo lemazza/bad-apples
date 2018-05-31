@@ -59,7 +59,6 @@ class PlayerConsole extends React.Component {
   }
 
   handleStartGame () {
-    console.log('about to start game', this.props.gameId);
     socket.emit('start game', this.props.gameId);
     /*
     const authToken = loadAuthToken();
@@ -135,12 +134,10 @@ class PlayerConsole extends React.Component {
 
 const mapStateToProps = state => {
   let player = state.game.userPlayer;
-  console.log('here is player', player);
   let cardsInStacks = state.game.players.map(x=> x.stack);
   let bidMax = cardsInStacks.reduce((acc, cv) => acc + cv);
   let activePlayer = state.game.players.find(plyr => plyr.controller === player.controller);
-  let active = (activePlayer)? activePlayer.active : ''
-  console.log('current state in playerconsole', player.hand);
+  let active = (activePlayer)? activePlayer.active : '';
   return {
     username: player.name,
     hand: player.hand,

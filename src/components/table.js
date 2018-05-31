@@ -3,10 +3,11 @@ import connect from 'react-redux';
 import {loadAuthToken} from '../local-storage';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
-import {socket} from '../components/websockets';
+import {socket} from './websockets';
 import './table.css'
 
 export function Table (props) {
+
   function handleReveal(values) {
       const revealId = values.target.getAttribute('data-player-id');
     socket.emit('reveal', props.gameId, revealId)

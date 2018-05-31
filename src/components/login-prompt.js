@@ -24,7 +24,7 @@ export class LoginPrompt extends React.Component {
     let formName, formType, buttonText;
     if (this.state.toggleForm) {
       formName = 'Login';
-      formType = <LoginForm />;
+      formType = <LoginForm socket={this.socket} />;
       buttonText = 'Create New User'
     } else {
       formName = 'Create New User';

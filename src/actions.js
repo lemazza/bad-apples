@@ -35,6 +35,7 @@ export const loadGameState = (gameStateObj) => ({
 });
 
 export const fetchGameState = (gameId) => dispatch => {
+  console.log('fetching');
   const authToken = loadAuthToken();
   fetch(API_URL.games + '/' + gameId, {
     headers: {
@@ -99,7 +100,8 @@ export const storeAuthInfo = (authToken, dispatch) => {
     dispatch(authSuccess(decodedToken.user));
 };
 
-export function login (username, password, dispatch) {
+export function login (username, password, gameId, dispatch) {
+  console.log('attempting login');
   dispatch(authRequest());
   return (
     fetch(API_URL.login, {
@@ -120,6 +122,7 @@ export function login (username, password, dispatch) {
       storeAuthInfo(authToken, dispatch);
       saveAuthToken(authToken);
       saveLocalUser(username);
+      dispatch(fetchGameState(gameId));
     })
     .catch(err => {
       const {code} = err;

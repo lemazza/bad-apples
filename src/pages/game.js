@@ -15,27 +15,27 @@ import './game.css'
 export class Game extends React.Component {
   constructor(props) {
     super(props);
-
     let gameId = this.props.match.params.gameId
-    socket.on('update game', function(data) {
-      console.log('attempting game update');
-      props.dispatch(loadGameState(data));
-    });
-    socket.on('get update', function(data) {
-      console.log('i am requesting an update for gameId', gameId);
-      socket.emit('request update', gameId)
-    })
-    socket.on('error', function(err) {
-      console.log('error occured on server side, probably', err);
-    })
+    if(this.props.authToken) {
+      socket.on('update game', function(data) {
+        console.log('attempting game update');
+        props.dispatch(loadGameState(data));
+      });
+      socket.on('get update', function(data) {
+        console.log('i am requesting an update for gameId', gameId);
+        socket.emit('request update', gameId)
+      })
+      socket.on('error', function(err) {
+        console.log('error occured on server side, probably', err);
+      })
+    }
   }
 
   //onmount hydrate gameState from DB
   getGameData () {
-    const authToken = loadAuthToken();
     fetch(API_URL.games + `/${this.props.match.params.gameId}`, {
       headers: {
-        'Authorization': `Bearer ${authToken}`
+        'Authorization': `Bearer ${this.props.authToken}`
       }
     })
     .then(res=> res.json())
@@ -52,14 +52,15 @@ export class Game extends React.Component {
   componentDidMount() {
     let gameId = this.props.match.params.gameId
     this.props.dispatch(fetchGameState(gameId));
-    
-    socket.emit('join game', {gameId});
-    socket.emit('get update');    
+    console.log('game component mounted');
+    if(this.props.authToken) {
+    socket.emit('join game', gameId);
+    socket.emit('get update');
+    }    
   }
 
   render() {
-    const authToken = loadAuthToken();
-    const prompt = (authToken)? '' : <LoginPrompt />
+    const prompt = (this.props.authToken)? '' : <LoginPrompt />
 
     return (
       <div className="game-page">
@@ -76,6 +77,7 @@ const mapStateToProps = state => ({
     username: state.game.userPlayer.name,
     gameState: state.game,
     gameId: state.game.gameId,
+    authToken: state.auth.authToken,
 });
 
 export default connect(mapStateToProps)(Game);

@@ -9,7 +9,6 @@ import {Table} from './table';
 import './other-players.css';
 
 export function OtherPlayers (props) {
-
   const oppDisplayMatrix = [
     [, 1, 1, 2, 2],
     [1, , 2, 3, 3],
