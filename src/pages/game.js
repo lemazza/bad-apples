@@ -10,7 +10,7 @@ import {LoginPrompt} from '../components/login-prompt';
 import {socket} from '../components/websockets';
 
 import './game.css'
-
+//comment
 
 export class Game extends React.Component {
   constructor(props) {
