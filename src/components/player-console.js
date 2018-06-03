@@ -101,6 +101,7 @@ class PlayerConsole extends React.Component {
           <div className="user-info col-4">
             <h2 className={(this.props.active)? 'active-user' : ''} >{this.props.username}</h2>
             <p>Rounds Won: {this.props.roundsWon}</p>
+            <p>game is updating</p>
             {this.readyGame()}
           </div>
 
