@@ -20,11 +20,11 @@ export class Home extends React.Component {
         {logged}
         <div className='row'>
           {formPrompt}
-          <section className="col home-choice">
-            <Link to='/rules'>Learn Bad Apples</Link>
+          <section className="col-md text-center home-choice">
+            <Link to='/rules'>Learn the Rules</Link>
           </section>
-          <section className='col home-choice'>
-            <Link to='/setup-game'>Play Bad Apples</Link><br />
+          <section className='col-md text-center home-choice'>
+            <Link to='/setup-game'>Play the Game</Link><br />
           </section>
         </div>
       </div>

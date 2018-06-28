@@ -1,13 +1,22 @@
 
 header a {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-family: 'Lilita One', cursive;
   color: white;
   text-decoration: none;
   text-shadow: 3px 3px #7c0d01 ;
 }
 
 header a:hover {
-  color:#bbb; 
+  color:tan; 
   text-decoration:none;
+}
+
+header a:active {
+  color: #7c0d01; 
+  text-decoration:none;
+  text-shadow: 3px 3px white ;
 }
 
 header {
