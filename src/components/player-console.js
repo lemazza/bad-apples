@@ -6,14 +6,15 @@ import {API_URL} from '../config';
 import {loadGameState} from '../actions';
 import Input from '../components/input';
 import {reduxForm, SubmissionError, Field} from 'redux-form';
-import {socket} from './websockets';
+//import socket from './websockets';
 import {handleUserBid} from '../actions';
 import './player-console.css';
 
+let socket
 class PlayerConsole extends React.Component {
     constructor(props) {
     super(props);
-
+    socket = props.socket;
     this.handleStartGame  = this.handleStartGame.bind(this);
     this.handlePass  = this.handlePass.bind(this);
   }
@@ -40,7 +41,9 @@ class PlayerConsole extends React.Component {
   }
 
   handlePass () {
+    //sockets2.pass();
     socket.emit('pass', this.props.gameId);
+
     /*const authToken = loadAuthToken();
     fetch(API_URL.games + `/${this.props.gameId}/pass/`, {
       headers: {
@@ -59,7 +62,9 @@ class PlayerConsole extends React.Component {
   }
 
   handleStartGame () {
+    //sockets2.startGame();
     socket.emit('start game', this.props.gameId);
+
     /*
     const authToken = loadAuthToken();
     const gameId = this.props.gameId;
@@ -92,7 +97,7 @@ class PlayerConsole extends React.Component {
 
   render() {
     let handState = this.props.hand.map((card, index) => {
-      return <Card key={index} clickable={true} type={card} />
+      return <Card socket={socket} key={index} clickable={true} type={card} />
     })
 
     return (
@@ -101,7 +106,6 @@ class PlayerConsole extends React.Component {
           <div className="user-info col-4">
             <h2 className={(this.props.active)? 'active-user' : ''} >{this.props.username}</h2>
             <p>Rounds Won: {this.props.roundsWon}</p>
-            <p>game is updating</p>
             {this.readyGame()}
           </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from './login-form';
+import CreateUser from '../pages/create-user';
 import './login-prompt.css';
 
 export class LoginPrompt extends React.Component {
@@ -25,11 +26,11 @@ export class LoginPrompt extends React.Component {
     if (this.state.toggleForm) {
       formName = 'Login';
       formType = <LoginForm socket={this.socket} />;
-      buttonText = 'Create New User'
+      buttonText = 'Or Create New User'
     } else {
       formName = 'Create New User';
-      formType = '';
-      buttonText = 'Current User Login'
+      formType = <CreateUser />;
+      buttonText = 'Or Login'
     }
     return(
       <div className='login-prompt'>

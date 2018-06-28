@@ -64,7 +64,7 @@ export function OtherPlayers (props) {
         </div>
 
         <div className="table-container col-6">
-          <Table gameId={props.gameId} players={displayPlayers} />
+          <Table socket={props.socket} gameId={props.gameId} players={displayPlayers} />
         </div>
 
         <div className="opponent-container col-3">

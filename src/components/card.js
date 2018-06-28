@@ -5,10 +5,11 @@ import {loadAuthToken} from '../local-storage';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
 import './card.css';
-import {socket} from '../components/websockets';
+//import socket from '../components/websockets';
 
 export class Card extends React.Component {
   handleClick = (e) => {
+    let {socket} = this.props;
     if(!this.props.clickable) {
       console.log('the clicking does nothing');
       //should send error message here

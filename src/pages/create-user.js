@@ -4,6 +4,7 @@ import PageHeader from '../components/page-header';
 import {reduxForm, SubmissionError, Field} from 'redux-form';
 import {required, nonEmpty, email} from '../components/validators';
 import {API_URL} from '../config';
+import {login} from '../actions';
 import Input from '../components/input';
 
 export class CreateUser extends React.Component {
@@ -30,6 +31,8 @@ export class CreateUser extends React.Component {
         });
       }
       //login
+      let gameId = window.location.pathname.slice(7);
+      this.props.dispatch(login(values.username, values.password, gameId, this.props.dispatch))
       //redirect
       return;
     })
@@ -54,7 +57,6 @@ export class CreateUser extends React.Component {
   render() {
     return (
       <div>
-        <PageHeader />
 
         <form 
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}

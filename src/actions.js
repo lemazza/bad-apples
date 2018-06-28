@@ -7,6 +7,8 @@ import {API_URL} from './config';
 import {normalizeResponseErrors} from './utils';
 import {saveAuthToken, clearAuthToken, saveLocalUser, loadAuthToken} from './local-storage';
 
+import {socket} from './components/websockets';
+
 
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';

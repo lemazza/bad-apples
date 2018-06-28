@@ -11,7 +11,7 @@ export class LoginForm extends React.Component {
 		let gameId = window.location.pathname.slice(7);
 		this.props.dispatch(login(values.username, values.password, gameId, this.props.dispatch))
 		.then(()=> {
-			window.location.reload();
+			//window.location.reload();
 		})
 	}
 

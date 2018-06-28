@@ -41,18 +41,13 @@ class SetupGame extends React.Component {
   render () {
     return (
       <div>
-        <PageHeader />
+        <PageHeader title="Game Settings"/>
           <form 
             onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
           >
 
-          <Field component={Input} label='Number of AI Players' 
-            validate={[required, nonEmpty, totalPlayers]} 
-            type="number" name="bots" min="0" max="5" step="1" value="0" 
-          />
-
           <Field component={Input} label="Number of human players" 
-            validate={[required, nonEmpty, totalPlayers]} 
+            validate={[required, nonEmpty]} 
             type="number" name="humans" min="1" max="6" step="1" value="1" 
           />
 

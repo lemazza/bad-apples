@@ -1,6 +1,8 @@
 html, body {
   background-image: url('/images/sunscreen-game-bg.jpg');
+  background-color:   gray;
   background-size: cover;
   min-height: 600px;
 }
+
 

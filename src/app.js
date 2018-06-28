@@ -1,9 +1,11 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './pages/home';
-import Game from './pages/game';
-import CreateUser from './pages/create-user'
-import SetupGame from './pages/setup-game'
+import GameWrapper from './pages/game-wrapper';
+import CreateUser from './pages/create-user';
+import SetupGame from './pages/setup-game';
+import SplashPage from './pages/splash-page';
+import Rules from './pages/rules';
 
 
 export default function App(props) {
@@ -12,10 +14,10 @@ export default function App(props) {
       <div className="app container">
         <main>
           <Route exact path="/" component={Home} />
-          <Route exact path="/game" component={Game} />
           <Route exact path="/create-user" component={CreateUser} />
           <Route exact path="/setup-game" component={SetupGame} />
-          <Route exact path="/games/:gameId" component={Game} />
+          <Route exact path="/games/:gameId" component={GameWrapper} />
+          <Route exact path="/rules" component={Rules} />
         </main>
       </div>
     </Router>

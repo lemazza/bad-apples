@@ -1,0 +1,13 @@
+#splash-page {
+  background-color: white;
+}
+
+#splash-page h2 img{
+  max-width: 100%;
+}
+
+#splash-page button {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}

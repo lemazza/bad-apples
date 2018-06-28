@@ -2,25 +2,44 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PageHeader from '../components/page-header';
-import LoginForm from '../components/login-form';
+//import LoginForm from '../components/login-form';
+import {LoginPrompt} from '../components/login-prompt';
+import LoggedInAs from '../components/logged-in-as';
+import {connect} from 'react-redux';
 
-export default function Home (props) {
-  return (
-    <div>
-      <PageHeader title='Home'/>
-      <div className='row'>
-        <section className='col'>
-          <LoginForm />
-          <Link to='/create-user'>Create New User</Link>
-        </section>
+import './home.css';
 
-        <section className='col'>
-          <h2>Play Bad Apples</h2>
-          <Link to='/setup-game'>Start Game</Link><br />
-          <Link to='/tutorial'>Tutorial</Link>
-        </section>
+export class Home extends React.Component {
+  
+  render() {
+    let formPrompt = (this.props.currentUser)? '' : <section className="col"><LoginPrompt /></section>;
+    let logged = (this.props.currentUser)? <LoggedInAs username={this.props.currentUser.username} /> : ''
+    return (
+      <div id="home-page">
+        <PageHeader title='Home'/>
+        {logged}
+        <div className='row'>
+          {formPrompt}
+          <section className="col home-choice">
+            <Link to='/rules'>Learn Bad Apples</Link>
+          </section>
+          <section className='col home-choice'>
+            <Link to='/setup-game'>Play Bad Apples</Link><br />
+          </section>
+        </div>
       </div>
-
-    </div>
-  )
+    )
+  }
+  
 }
+
+const mapStateToProps = state => {
+  return {
+    currentUser: state.auth.currentUser,
+    authToken: state.auth.authToken,
+    auth: state.auth,
+    state: state,
+  }
+};
+
+export default connect(mapStateToProps)(Home);
