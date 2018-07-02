@@ -1,3 +1,28 @@
 #rules-page {
+  background-color: rgba(255,255,255, .7);
+  padding: 5px;
+}
+
+#rules-page section {
+  border: 2px solid  #7c0d01;
+  margin: 15px;
   background-color: white;
+  padding: 10px;
+}
+
+#rules-page section h2 {
+  background-color:  #7c0d01;
+  color: white;
+  padding: 5px;
+  font-family: 'Lilita One', cursive;
+  text-shadow: 3px 3px black ;
+}
+
+#rules-page section h3 {
+  font-family: 'Lilita One', cursive;
+}
+
+#rules-page .link {
+  font-weight: bold;
+  color: #7c0d01;
 }

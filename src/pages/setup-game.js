@@ -8,6 +8,8 @@ import {required, nonEmpty, totalPlayers} from '../components/validators';
 import {API_URL} from '../config';
 import {loadAuthToken} from '../local-storage';
 
+import './setup-game.css';
+
 
 class SetupGame extends React.Component {
   
@@ -42,11 +44,11 @@ class SetupGame extends React.Component {
     return (
       <div>
         <PageHeader title="Game Settings"/>
-          <form 
+          <form id="setup-game-form" 
             onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
           >
 
-          <Field component={Input} label="Number of human players" 
+          <Field component={Input} label="Number of players" 
             validate={[required, nonEmpty]} 
             type="number" name="humans" min="1" max="6" step="1" value="1" 
           />
