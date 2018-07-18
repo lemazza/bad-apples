@@ -7,9 +7,23 @@ import {fetchGameState, loadGameState} from '../actions';
 import {loadAuthToken} from '../local-storage';
 import GameStatusDisplay from '../components/game-status-display';
 import io from 'socket.io-client';
+import Modal from 'react-modal';
 //import Socket from '../components/websockets';
 import './game.css'
 //comment
+
+
+ /*<button onClick={this.openModal}>Invite Players</button>
+        <Modal
+          isOpen={this.canInvite()}
+          contentLabel="Example Modal"
+        >
+
+          <h2>Hello</h2>
+          <p>Invite Modal</p>
+          <button >close</button>
+        </Modal>
+        */
 
 let socket;
 export class Game extends React.Component {
@@ -71,9 +85,18 @@ export class Game extends React.Component {
         
   }
 
+  canInvite() {
+    if(this.props.numJoined < this.props.numInvited) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     return (
       <div className="game-page">
+       
         <GameStatusDisplay />
         <OtherPlayers socket={socket}/>
         <PlayerConsole socket={socket}/>
@@ -87,6 +110,8 @@ const mapStateToProps = state => ({
     gameState: state.game,
     gameId: state.game.gameId,
     authToken: state.auth.authToken,
+    numInvited: state.game.numBots + state.game.numHumans,
+    numJoined: state.game.players.length,
 });
 
 export default connect(mapStateToProps)(Game);

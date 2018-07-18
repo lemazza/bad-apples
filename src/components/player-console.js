@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Card from './card';
+import Invite from './invite';
 import {loadAuthToken} from '../local-storage';
 import {API_URL} from '../config';
 import {loadGameState} from '../actions';
@@ -95,6 +96,17 @@ class PlayerConsole extends React.Component {
     }
   }
 
+  invitePlayers() {
+
+    if(this.props.phase === 'waiting for players' 
+      && this.props.creator 
+      && this.props.numJoined < this.props.numInvited) {
+      return (
+        <Invite />
+      )
+    }
+  }
+
   render() {
     let handState = this.props.hand.map((card, index) => {
       return <Card socket={socket} key={index} clickable={true} type={card} />
@@ -113,6 +125,7 @@ class PlayerConsole extends React.Component {
             {handState}
           </div>
         </div>
+        {this.invitePlayers()}
 
         <div className="row">
           <form className="col" onSubmit={this.props.handleSubmit(values => this.handleBid(values))}>
